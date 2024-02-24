@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { Apollo, gql } from "apollo-angular";
 
 @Component({
   selector: "app-root",
@@ -22,6 +23,25 @@ import { Component } from "@angular/core";
   `,
   styles: [],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "integrahub";
+
+  constructor(private apollo: Apollo) {}
+
+  ngOnInit() {
+    console.log('init');
+    
+    this.apollo
+      .query({
+        query: gql`{
+          users {
+            items {
+              id, name, email
+            }
+          }
+        }`
+      })
+      .subscribe(console.log);
+  }
+
 }
