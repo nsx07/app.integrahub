@@ -1,52 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(../node_modules/@fortawesome/fontawesome-free/css/all.min.css);
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-// css animation
-
-.dot-flashing {
-  position: relative;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  animation: dot-flashing 1s infinite linear alternate;
-  animation-delay: 0.5s;
-  @apply bg-secondary to-primary;
-}
-.dot-flashing::before,
-.dot-flashing::after {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  top: 0;
-}
-.dot-flashing::before {
-  left: -15px;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  animation: dot-flashing 1s infinite alternate;
-  animation-delay: 0s;
-  @apply bg-secondary to-primary;
-}
-.dot-flashing::after {
-  left: 15px;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  animation: dot-flashing 1s infinite alternate;
-  animation-delay: 1s;
-  @apply bg-secondary to-primary;
-}
-
-@keyframes dot-flashing {
-  0% {
-    @apply bg-primary;
-  }
-  50%,
-  100% {
-    @apply bg-clean;
-  }
-}

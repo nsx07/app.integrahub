@@ -2,19 +2,22 @@ const colors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ["./src/**/*.{html,ts}"],
-  darkMode: "class",
   theme: {
+    colors: {
+      "primary": "#14052a",
+      "secondary": "#23224a",
+      "tertiary": "#71798a",
+      "clean": "#f0ece5",
+      "very-clean": "#ffffff",
+      ...colors
+    },
     extend: {
-      colors: {
-        primary: "#14052a",
-        secondary: "#23224a",
-        tertiary: "#71798a",
-        clean: "#f0ece5",
-        vclean: "#ffffff",
-        ...colors,
-      },
+      width: {
+        "90%": "90%"
+      }
     },
   },
   plugins: [],
-};
+}
