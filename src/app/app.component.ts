@@ -1,7 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { Apollo, gql } from "apollo-angular";
-import { GraphqlService } from "./services/graphql.service";
-import { LoaderService } from "./services/loader.service";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-root",
@@ -12,23 +9,8 @@ import { LoaderService } from "./services/loader.service";
   `,
   styles: [],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  constructor(private apollo: GraphqlService, private load: LoaderService) {
-  }
-  
-  ngOnInit() {
-    this.apollo
-      .get({
-        query: gql`{
-          users {
-            items {
-              id, name, email
-            }
-          }
-        }`
-      })
-      .subscribe(console.log);
-  }
+  constructor() { }
 
 }

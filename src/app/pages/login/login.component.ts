@@ -8,7 +8,7 @@ import { Platform } from '@angular/cdk/platform';
 @Component({
     selector: 'app-login',
     template: `
-    <div id="login_page" class="w-screen h-screen z-[100] p-2 bg-slate-700">
+    <div id="login_page" class="w-screen h-screen z-[100] p-2 bg-gray-500">
       <div class="grid md:grid-cols-2 grid-cols-1 text-white rounded shadow bg-slate-950 h-full">
               <img src="assets/icons/logo_imagem_dark_mode.png" class="fixed w-12 m-6 z-10 rounded" alt="Icone AgendaHub"/>
 
@@ -118,8 +118,7 @@ export class LoginComponent implements OnInit {
           if (result.success) {
             this.authService.goFourth({
               target: "home",
-              beforeNavigate: () => this.messageService.add({severity: "success", summary: "Logado com sucesso!", detail: result.message}), 
-              afterNavigate: () => this.messageService.add({severity: "success", summary: "Visualize suas tarefas para hoje!"})
+              beforeNavigate: () => this.messageService.add({severity: "success", summary: "Logado com sucesso!", detail: result.message})
             })
             
           } else {

@@ -9,6 +9,9 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent},
+
+  {path: 'panel', loadChildren: () => import('./panel/panel.module').then(m => m.PanelModule), canActivate: [authGuard]},
+
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home'}
 ];
