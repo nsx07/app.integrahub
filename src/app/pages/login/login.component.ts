@@ -8,9 +8,9 @@ import { Platform } from '@angular/cdk/platform';
 @Component({
     selector: 'app-login',
     template: `
-    <div id="login_page" class="w-screen h-screen z-[100] p-2 bg-gray-500">
+    <div id="login_page" class="w-screen h-screen z-[100] p-1 bg-gray-800 bg-opacity-50 bg-blend-darken">
       <div class="grid md:grid-cols-2 grid-cols-1 text-white rounded shadow bg-slate-950 h-full">
-              <img src="assets/icons/logo_imagem_dark_mode.png" class="fixed w-12 m-6 z-10 rounded" alt="Icone AgendaHub"/>
+              <img src="assets/icons/logo_imagem_dark_mode.png" class="fixed w-12 m-6 z-10 rounded shadow-lg p-[1px] bg-opacity-10 bg-slate-700" alt="Icone AgendaHub"/>
 
               <div class="bg-blend-darken h-full overflow-hidden md:block hidden rounded-l">
                 <img loading="eager" [src]="image" class="opacity-60 w-full object-cover object-center h-full" style="zoom: -50%" alt="landscape"/>
@@ -79,7 +79,7 @@ import { Platform } from '@angular/cdk/platform';
       
     </div>
     `,
-    styleUrl: './login.component.css',
+    styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
 

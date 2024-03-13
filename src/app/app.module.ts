@@ -23,9 +23,11 @@ import { environment } from '../environments/environment.dev';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from "primeng/message"
 import { ToastModule } from "primeng/toast"
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
+    HomeComponent,
     AppComponent,
     LoginComponent,
     SignupComponent,

@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         CommonModule,
     ],
     template: `<p>company works!</p>`,
-    styleUrl: './company.component.css',
+    styleUrl: './company.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompanyComponent { }

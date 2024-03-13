@@ -1,6 +1,6 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { NgxUiLoaderModule, NgxUiLoaderService, SPINNER } from 'ngx-ui-loader';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { NgxUiLoaderService, SPINNER } from 'ngx-ui-loader';
 import { LoaderService } from '../../services/loader.service';
 
 @Component({
@@ -35,7 +35,7 @@ import { LoaderService } from '../../services/loader.service';
       >
       </ngx-ui-loader>
     `,
-    styleUrl: './loader.component.css',
+    styleUrl: './loader.component.scss',
 })
 export class LoaderComponent implements OnInit {
 

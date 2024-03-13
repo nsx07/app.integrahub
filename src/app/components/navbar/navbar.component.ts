@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     template: `
     
     `,
-    styleUrl: './navbar.component.css',
+    styleUrl: './navbar.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent { }

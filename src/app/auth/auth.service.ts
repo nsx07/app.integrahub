@@ -23,12 +23,9 @@ export class AuthService {
     private loader: LoaderService,
     private jwt: JwtHelperService,
     private httpClient: HttpClient,
-    private platform: Platform,
     private messageService: MessageService
     ) 
-    {
-      
-    }
+    { }
 
   public get isLogged () {
     this.logged = this.TokenData != null;
@@ -51,10 +48,7 @@ export class AuthService {
   }
 
   public get TokenData() {
-    if (this.Token) {
-      return this.jwt.decodeToken();
-    }
-    return null;
+    return this.Token ?? this.jwt.decodeToken();
   }
 
   public getUserData() {
@@ -62,16 +56,11 @@ export class AuthService {
   }
 
   private get ExpiresIn() {
-    if (this.Token) {
-      return this.jwt.getTokenExpirationDate()
-    }
-    return null
+    return this.Token ?? this.jwt.getTokenExpirationDate()
   }
 
   public get IsValid() {
-    const isValid = this.jwt.isTokenExpired(this.Token)
-    
-    return isValid
+    return this.jwt.isTokenExpired(this.Token)
   }
   
   public login(login: string, password: string, extras?: Record<string, any>) {
@@ -87,10 +76,6 @@ export class AuthService {
     return this.httpClient.post(this.baseUrl + "Auth/Login", loginModel, extras ? {params: extras} : undefined).pipe(finalize(() => this.loader.hide())).pipe(map((r: any) => {
       this.Token = r.token;
       
-      if (r.token) {
-        this.checkToken();
-      }
-
       return r
     }))
   }
@@ -104,7 +89,7 @@ export class AuthService {
     })
   }
 
-  public back (navigate?: NavigateOptions) {
+  public back(navigate?: NavigateOptions) {
     if (navigate && navigate.beforeNavigate) {
       navigate.beforeNavigate()
     }
@@ -132,64 +117,6 @@ export class AuthService {
         navigate.afterNavigate();
       }
     }, navigate.timeout);
-  }
-
-  interval: any
-  
-  private get intervalRunning() {
-    return StorageUtils.getLocalItem("interval")
-  }
-
-  private set intervalRunning(value: boolean) {
-    StorageUtils.setLocalItem("interval", value);
-  }
-
-  private checkToken() {
-    clearInterval(this.interval)
-    this.intervalRunning = true;
-
-    this.interval = setInterval(async () => {
-      const now = Date.now();
-      const timeRemaining = await this.ExpiresIn;
-
-      if (!timeRemaining) {
-        clearInterval(this.interval);
-        this.intervalRunning = false;
-      }
-
-      const isNeedRefresh = Math.abs(timeRemaining?.getTime()! - now) / 1000 < 100;
-
-      if (this.isLogged && isNeedRefresh) {
-        clearInterval(this.interval);
-        this.intervalRunning = false;
-        this.tryRefreshToken()
-      }
-
-      if (!this.isLogged) {
-        clearInterval(this.interval)
-        this.intervalRunning = false;
-      }
-    }, 1000);
-  }
-
-  private tryRefreshToken() {
-    console.log("Token its auto-refresh only on mobile");
-    if (!this.platform.isBrowser || this.platform.ANDROID || this.platform.IOS) {
-
-      console.log("Trying to refresh token");
-      this.httpClient.get(this.baseUrl + "Auth/Refresh").subscribe((x: any) => {
-        console.log(x);
-        
-        if (x && x.token) {
-          console.log("Token refreshed");
-          this.Token = x.token;
-          
-          this.checkToken()
-        }
-      }, err => {
-        this.back({beforeNavigate: () => this.messageService.add({severity: "warning", summary: "Erro ao atualizar token", detail: err})})
-      })
-    }
   }
 
 }

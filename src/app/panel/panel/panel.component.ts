@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         CommonModule,
     ],
     template: `<p>panel works!</p>`,
-    styleUrl: './panel.component.css',
+    styleUrl: './panel.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PanelComponent { }

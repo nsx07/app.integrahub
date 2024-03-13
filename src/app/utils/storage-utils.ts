@@ -31,10 +31,24 @@ export class StorageUtils {
         sessionStorage.clear();
     }
 
+    static forget() {
+        this.clearLocal();
+        this.clearSession();
+    }
+
+    /**
+     * @TODO implement a custom serializer that can handle more than just JSON
+     * @param value
+     */
     private static serializer(value: any) {
         return JSON.stringify(value);
     }
 
+    /**
+     * @TODO implement a custom deserializer that can handle more than just JSON
+     * @param value 
+     * @returns value deserialized
+     */
     private static deserializer(value: any) {
         return JSON.parse(value);
     }
