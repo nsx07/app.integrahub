@@ -1,35 +1,47 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { skipRoutes } from "./core/rules";
 import { Title } from "@angular/platform-browser";
-import { Router } from "@angular/router";
-import { PrimeNGConfig } from "primeng/api";
+import { NavigationEnd, Router } from "@angular/router";
+import { AuthService } from "./auth/auth.service";
 
 @Component({
   selector: "app-root",
   template: `
     <loader></loader>
-    <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"></p-toast>
 
-    <div id="app-container" class="w-screen h-screen overflow-auto dark:bg-primary backdrop-blur-lg bg-clean" [ngClass]="{ flex: sidebarFixed }">
-      <div class="relative w-full md:h-full h-max overflow-auto" [ngClass]="{ 'sm:pl-14 pl-0 ': !hideNav }">
+    <div id="app-container" class="w-screen h-screen overflow-auto dark:bg-primary backdrop-blur-lg bg-clean">
+      <app-sidebar></app-sidebar>
+      <div class="relative w-full md:h-full h-max overflow-auto sm:pl-32 p-0">
         <router-outlet></router-outlet>
       </div>
     </div>
   `,
   styles: [],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
-    private primeNG: PrimeNGConfig,
     private router: Router,
-    private title: Title
+    private title: Title,
+    private auth: AuthService
   ) {
 
-    primeNG.overlayOptions = {
-      appendTo: "body",
-    };
-
     title.setTitle("AgendaHub | Sistema de Gestão de Atividades");
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        setTimeout(() => {
+          window.HSStaticMethods.autoInit();
+        }, 100);
+
+        if (!this.auth.tokenIsValid) {
+          this.router.navigate(["/login"]);
+        } else if (event.url === "/login") {
+          this.router.navigate(["/panel"]);
+        }
+      }
+    });
   }
 
   get hideNav() {

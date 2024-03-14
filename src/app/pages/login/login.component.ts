@@ -2,8 +2,8 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
-import { MessageService } from 'primeng/api';
 import { Platform } from '@angular/cdk/platform';
+import { MessageService } from '../../services/message.service';
 
 @Component({
     selector: 'app-login',
@@ -31,35 +31,53 @@ import { Platform } from '@angular/cdk/platform';
                     id="form-login-page"
                     class="flex flex-col gap-4 my-6"
                     >
-                    <div>
-                        <label
-                        for="login"
-                        class="text-left text-base sm:text-sm font-normal leading-9 tracking-normal text-gray-400"
-                        >Email ou Telefone</label
-                        >
-                        <input
-                        formControlName="login"
-                        type="text"
-                        id="login"
-                        class="input w-full"
-                        />
+
+                    <div class="relative">
+                      <input type="text" formControlName="login" id="hs-floating-underline-input-email" class="peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600
+                      focus:pt-6
+                      focus:pb-2
+                      [&:not(:placeholder-shown)]:pt-6
+                      [&:not(:placeholder-shown)]:pb-2
+                      autofill:pt-6
+                      autofill:pb-2" placeholder="you@email.com">
+                      <label for="hs-floating-underline-input-email" class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                        peer-focus:text-xs
+                        peer-focus:-translate-y-1.5
+                        peer-focus:text-gray-500
+                        peer-[:not(:placeholder-shown)]:text-xs
+                        peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                        peer-[:not(:placeholder-shown)]:text-gray-500">Email / Telefone</label>
                     </div>
 
-                    <div>
-                        <label
-                        for="password"
-                        class="text-left text-base sm:text-sm font-normal leading-9 tracking-normal text-gray-400"
-                        >Senha</label
-                        >
-                        <input
-                        id="password"
-                        formControlName="password"
-                        type="password"
-                        autocomplete="current-password"
-                        class="input w-full"
-                        />
+                    <div class="relative">
+                      <input type="password" formControlName="password" id="hs-floating-underline-input-passowrd" class="peer py-4 px-0 block w-full bg-transparent border-t-transparent border-b-2 border-x-transparent border-b-gray-200 text-sm placeholder:text-transparent focus:border-t-transparent focus:border-x-transparent focus:border-b-blue-500 focus:ring-0 disabled:opacity-50 disabled:pointer-events-none dark:border-b-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 dark:focus:border-b-gray-600
+                      focus:pt-6
+                      focus:pb-2
+                      [&:not(:placeholder-shown)]:pt-6
+                      [&:not(:placeholder-shown)]:pb-2
+                      autofill:pt-6
+                      autofill:pb-2" placeholder="********">
+                      <label for="hs-floating-underline-input-passowrd" class="absolute top-0 start-0 py-4 px-0 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                        peer-focus:text-xs
+                        peer-focus:-translate-y-1.5
+                        peer-focus:text-gray-500
+                        peer-[:not(:placeholder-shown)]:text-xs
+                        peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                        peer-[:not(:placeholder-shown)]:text-gray-500">Senha</label>
+                        <button type="button" data-hs-toggle-password='{
+                          "target": "#hs-floating-underline-input-passowrd"
+                        }' class="absolute top-3 end-0 p-3.5 rounded-e-md dark:focus:outline-none dark:focus:ring-none dark:focus:ring-none">
+                        <svg class="flex-shrink-0 size-3.5 text-gray-400 dark:text-neutral-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path class="hs-password-active:hidden" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                          <path class="hs-password-active:hidden" d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                          <path class="hs-password-active:hidden" d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                          <line class="hs-password-active:hidden" x1="2" x2="22" y1="2" y2="22"/>
+                          <path class="hidden hs-password-active:block" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                          <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"/>
+                        </svg>
+                      </button>
                     </div>
-
+                    
                     <div class="mt-5">
                         <button
                         (click)="login()"

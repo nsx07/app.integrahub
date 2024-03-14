@@ -3,7 +3,7 @@ const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ["./src/**/*.{html,ts}"],
+  content: ["./src/**/*.{html,ts}", './node_modules/preline/preline.js',],
   theme: {
     colors: {
       "primary": "#14052a",
@@ -19,5 +19,9 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('preline/plugin'),
+
+  ],
 }

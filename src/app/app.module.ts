@@ -20,10 +20,10 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { JwtModule } from '@auth0/angular-jwt';
 import { tokenGetter } from './auth/auth.utils';
 import { environment } from '../environments/environment.dev';
-import { MessageService } from 'primeng/api';
-import { MessageModule } from "primeng/message"
-import { ToastModule } from "primeng/toast"
 import { HomeComponent } from './pages/home/home.component';
+import { MessageService } from './services/message.service';
+import { ThemeSelectorComponent } from './components/theme-selector/theme-selector.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,9 @@ import { HomeComponent } from './pages/home/home.component';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    LoaderComponent
+    LoaderComponent,
+    ThemeSelectorComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule,
@@ -42,8 +44,6 @@ import { HomeComponent } from './pages/home/home.component';
     GraphQLModule,
     ReactiveFormsModule,
     NgxUiLoaderModule,
-    ToastModule,
-    MessageModule,
 
     JwtModule.forRoot({
       config: {

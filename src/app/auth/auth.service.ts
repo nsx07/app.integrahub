@@ -5,9 +5,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject, finalize, map } from 'rxjs';
 import { environment } from '../../environments/environment.dev';
 import { StorageUtils } from '../utils/storage-utils';
-import { MessageService } from 'primeng/api';
 import { Platform } from '@angular/cdk/platform';
 import { LoaderService } from '../services/loader.service';
+import { MessageService } from '../services/message.service';
 
 @Injectable({
   providedIn: 'root'

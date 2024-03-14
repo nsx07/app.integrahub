@@ -57,11 +57,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/primeng/resources/primeng.min.scss",
-              "node_modules/primeng/resources/themes/tailwind-light/theme.scss"
+              "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/preline/preline.js"
+            ]
           },
           "configurations": {
             "production": {
