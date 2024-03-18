@@ -18,6 +18,7 @@ import { GraphqlService } from '../../../services/graphql.service';
                                     <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Email</th>
                                     <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Phone</th>
                                     <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Address</th>
+                                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -28,7 +29,11 @@ import { GraphqlService } from '../../../services/graphql.service';
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{item.email}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{item.phone}}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{formatAddress(item)}}</td>
-                                        
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                                            <a [routerLink]="['/panel/company/{{item.id}}']" class="text-indigo-600 hover:text-indigo-900">
+                                                <i class="fa-solid fa-pencil"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>

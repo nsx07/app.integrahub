@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { Platform } from '@angular/cdk/platform';
 import { MessageService } from '../../services/message.service';
+import { StorageUtils } from '../../utils/storage-utils';
 
 @Component({
     selector: 'app-login',
@@ -113,10 +114,10 @@ export class LoginComponent implements OnInit {
         login: ["", Validators.required],
         password: ["", Validators.required]
       });
-  
     }
   
     ngOnInit(): void {
+      StorageUtils.forget();
       this.image = this.getRandomImage();
     }
   

@@ -10,8 +10,10 @@ import { AuthService } from "./auth/auth.service";
     <loader></loader>
 
     <div id="app-container" class="w-screen h-screen overflow-auto dark:bg-primary backdrop-blur-lg bg-clean">
-      <app-sidebar></app-sidebar>
-      <div class="relative w-full md:h-full h-max overflow-auto sm:pl-32 p-0">
+      @if (!hideNav) {
+        <app-sidebar></app-sidebar>
+      }
+      <div class="relative w-full md:h-full h-max overflow-auto" [ngClass]="{'pl-0': hideNav, 'sm:pl-32 p-0': !hideNav}">
         <router-outlet></router-outlet>
       </div>
     </div>
@@ -29,11 +31,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event: any) => {
+    this.router.events.subscribe(async (event: any) => {
       if (event instanceof NavigationEnd) {
-        setTimeout(() => {
-          window.HSStaticMethods.autoInit();
-        }, 100);
 
         if (!this.auth.tokenIsValid) {
           this.router.navigate(["/login"]);

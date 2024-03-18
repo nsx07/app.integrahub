@@ -41,7 +41,13 @@ export class StorageUtils {
      * @param value
      */
     private static serializer(value: any) {
-        return JSON.stringify(value);
+        let nvalue: string = value;
+
+        if (typeof value === "object") {
+            nvalue = JSON.stringify(nvalue);
+        }
+
+        return nvalue
     }
 
     /**
@@ -50,6 +56,31 @@ export class StorageUtils {
      * @returns value deserialized
      */
     private static deserializer(value: any) {
-        return JSON.parse(value);
+        let nvalue: unknown;
+
+        try {
+            nvalue = JSON.parse(value);
+        } catch (e) {
+            // console.error(e)
+            nvalue = this.evaluate(value)
+        }
+        
+        return nvalue
+    }
+
+    private static evaluate(value: any) {
+        if (!Number.isNaN(+ value)) {
+            return value
+        }
+
+        if (value === "true") {
+            return true
+        }
+
+        if (value === "false") {
+            return false
+        }
+
+        return value
     }
 }

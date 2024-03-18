@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   public get IsValid() {
-    return this.jwt.isTokenExpired(this.Token)
+    return !this.jwt.isTokenExpired(this.Token)
   }
   
   public login(login: string, password: string, extras?: Record<string, any>) {
@@ -69,10 +69,7 @@ export class AuthService {
       password: password
     }
 
-    this.loader.show()
-    console.log(extras);
-    
-
+    this.loader.show();
     return this.httpClient.post(this.baseUrl + "Auth/Login", loginModel, extras ? {params: extras} : undefined).pipe(finalize(() => this.loader.hide())).pipe(map((r: any) => {
       this.Token = r.token;
       

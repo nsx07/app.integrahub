@@ -48,7 +48,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: [environment.getApiDomain()],
+        allowedDomains: [environment.getApiDomain(), ],
         disallowedRoutes: [environment.getApiDomain() + "/auth/login"]
       },
     }),
