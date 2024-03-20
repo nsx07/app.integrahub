@@ -9,6 +9,10 @@ import { AuthService } from "./auth/auth.service";
   template: `
     <loader></loader>
 
+    <div class="absolute bottom-2 left-2 z-50">
+      <theme-selector></theme-selector>
+    </div>
+
     <div id="app-container" class="w-screen h-screen overflow-auto dark:bg-primary backdrop-blur-lg bg-clean">
       @if (!hideNav) {
         <app-sidebar></app-sidebar>

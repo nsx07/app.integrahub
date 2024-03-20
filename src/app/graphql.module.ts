@@ -6,16 +6,16 @@ import { environment } from '../environments/environment.dev';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
 
-const authHeader = `Bearer ${localStorage.getItem('token')}`;
+const httpUri = environment.apiUrl.replace("api", "graphql");
+const token = localStorage.getItem('token');
+const authHeader = `Bearer ${token}`;
 const wsClient = new WebSocketLink({
   uri: environment.graphUrl,
   options: {
     reconnect: true,
-  },
+  }
 });
 
-const httpUri = environment.apiUrl.replace("api", "graphql");
- 
 export function createApollo(httpLink: HttpLink) {
   const basic = setContext((operation, context) => ({
     headers: {
@@ -24,8 +24,6 @@ export function createApollo(httpLink: HttpLink) {
   }));
  
   const auth = setContext((operation, context) => {
-    const token = localStorage.getItem('token');
- 
     if (token === null) {
       return {};
     } else {

@@ -76,7 +76,7 @@ import { Theme } from '../../utils/settings';
     </div>
 
     <ng-template #logo>
-      <div [ngClass]="{'mb-4': miniSideBar, 'px-3': sideBar}">
+      <div class="flex flex-col gap-2" [ngClass]="{'mb-4': miniSideBar, 'px-3': sideBar}">
         <a class="flex justify-center items-center" href="/">
           <img [src]="logoPath" class="z-10 rounded" alt="Icone AgendaHub" [ngClass]="{'w-12': miniSideBar, 'w-1/2': sideBar && mobile()}"/>
         </a>

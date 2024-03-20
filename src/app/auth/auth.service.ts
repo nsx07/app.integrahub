@@ -108,6 +108,11 @@ export class AuthService {
     setTimeout(() => {
       if (navigate.target) {
         this.router.navigate([navigate.target]);
+        setTimeout(() => {
+          if (navigate.refresh) {
+            location.reload();
+          } 
+        });
       }
 
       if (navigate.afterNavigate) {
@@ -121,6 +126,7 @@ export class AuthService {
 export class NavigateOptions {
   timeout? = 456;
   target?: string
+  refresh?: boolean = false;
   beforeNavigate?: () => void;
   afterNavigate?: () => void;
   prompt?: Promise<boolean>

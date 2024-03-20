@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { GraphqlService } from '../../../services/graphql.service';
 import { ApiService } from '../../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
+import { delay, firstValueFrom, of, timeout } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoaderService } from '../../../services/loader.service';
+import { Reactor } from '../../../utils/reactor';
+import { Observable } from '@apollo/client';
 
 @Component({
   selector: 'app-company-form',
@@ -128,7 +132,8 @@ import { firstValueFrom } from 'rxjs';
             
             <!-- End Checkbox -->
 
-            <div class="mt-6 grid">
+            <div class="mt-6 flex gap-6 justify-between">
+              <button (click)="router.navigate(['/panel/company/'])" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-coolGray-600 text-white hover:bg-coolGray-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 invalid:border-red-500">Voltar</button>
               <button type="submit" (click)="save()" [disabled]="form.invalid" form="companyForm" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 invalid:border-red-500">Cadastrar empresa</button>
             </div>
 
@@ -156,14 +161,38 @@ export class CompanyFormComponent implements OnInit{
   form!: FormGroup;
   states: any[] = []
   cities: any[] = []
+  companyId?: number
 
-  constructor(private graphql: GraphqlService, private api: ApiService, private formBuilder: FormBuilder) { }
+  constructor(private graphql: GraphqlService, private api: ApiService, private formBuilder: FormBuilder, private activedRoute: ActivatedRoute, private loader: LoaderService,public router: Router) { }
   
   ngOnInit(): void {
+    this.getIdfromUrl();
     this.createForm();
     this.loadResources();
   }
 
+  getIdfromUrl() {
+    const id = this.activedRoute.snapshot.params['id'];
+    this.companyId = Number(+id) ? +id : undefined;
+    console.log(this.companyId);
+    
+  }
+
+  get() {
+    
+    this.graphql.get(`{
+      companies(where: {id: {eq: ${this.companyId}}}) {
+          items {
+            id, fullName,domainName, zipCode, state, city, isActive, email, phone, address, logoUrl
+          }
+      }
+  }`).subscribe((result) => {
+      this.company = result.data.companies.items[0];
+      console.log(this.company);
+      this.form.patchValue(this.company);
+      this.loader.hide();
+    });
+  }
 
   async onStateSelect(event: any) {
     const stateId = event.target.value;
@@ -172,9 +201,14 @@ export class CompanyFormComponent implements OnInit{
   }
 
   async loadResources() {
+    this.loader.show();
     
     this.states = await firstValueFrom(this.api.raw.get<any[]>(this.baseUrlApiGeo + 'estados'))
 
+    if(this.companyId) {
+      this.get();
+    } else
+      this.loader.hide();
   }
 
   createForm() {

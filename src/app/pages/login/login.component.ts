@@ -136,6 +136,7 @@ export class LoginComponent implements OnInit {
           
           if (result.success) {
             this.authService.goFourth({
+              refresh: true,
               target: "home",
               beforeNavigate: () => this.messageService.add({severity: "success", summary: "Logado com sucesso!", detail: result.message})
             })
